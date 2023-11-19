@@ -1,13 +1,11 @@
 from random import randint, choices
 
-from seminar2.Fabrics.gem_generator import GemGenerator
-from seminar2.Fabrics.gold_generator import GoldGenerator
-from seminar2.Fabrics.silver_generator import SilverGenerator
-from seminar2.Fabrics.other_rewards_generator import CoalGenerator, GlassGenerator, \
-    StoneGenerator, WoodGenerator, BoneGenerator
+from seminar2.Factory.item_generator_param import ItemGeneratorParam
+from seminar2.Factory.item_generator import CoalGenerator, GlassGenerator, \
+    StoneGenerator, WoodGenerator, BoneGenerator, SilverGenerator, GemGenerator, GoldGenerator
 
 
-def chance(list_chances, list_items):
+def chance(list_items, list_chances):
     """
     Собственная реализация метода
     :type list_chances: list
@@ -20,23 +18,19 @@ def chance(list_chances, list_items):
 
     lst = []
 
-    for p, g in zip(list_chances, list_items):
-        for _ in range(p):
-            lst.append(g())
+    for i, c in zip(list_items, list_chances):
+        for _ in range(c):
+            lst.append(i)
 
     return lst
 
 
 if __name__ == '__main__':
-    chances = [10, 10, 10, 10, 10, 10, 3, 1]
-    items = [BoneGenerator, CoalGenerator, GlassGenerator, StoneGenerator,
-             WoodGenerator, SilverGenerator, GemGenerator, GoldGenerator]
 
-    generators = chance(chances, items)
-
-    [generators[randint(0, len(generators)) - 1].create_item().open() for _ in range(10)]
-
-    print()
-
-    # встроенный метод из библиотеки random
-    [i().create_item().open() for i in choices(items, weights=chances, k=10)]
+    print('Фабричный метод')
+    items = [BoneGenerator(), CoalGenerator(), GlassGenerator(), StoneGenerator(),
+             WoodGenerator(), SilverGenerator(), GemGenerator(), GoldGenerator()]
+    chances = [10, 10, 10, 10, 10, 5, 3, 1]
+    generators = chance(items, chances)
+    boxes = [generators[randint(0, len(generators)) - 1].create_item() for _ in range(10)]
+    [box.open() for box in boxes]

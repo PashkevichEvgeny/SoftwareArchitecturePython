@@ -11,9 +11,24 @@ class Coal(GameItem):
         print('Coal', end=' ')
 
 
+class Gem(GameItem):
+    def open(self):
+        print('Gem!', end=' ')
+
+
 class Glass(GameItem):
     def open(self):
         print('Glass', end=' ')
+
+
+class Gold(GameItem):
+    def open(self):
+        print('Gold!', end=' ')
+
+
+class Silver(GameItem):
+    def open(self):
+        print('Silver!', end=' ')
 
 
 class Stone(GameItem):
