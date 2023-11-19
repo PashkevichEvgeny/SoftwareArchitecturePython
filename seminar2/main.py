@@ -34,3 +34,10 @@ if __name__ == '__main__':
     generators = chance(items, chances)
     boxes = [generators[randint(0, len(generators)) - 1].create_item() for _ in range(10)]
     [box.open() for box in boxes]
+
+
+    print("\n\nПараметризированный фабричный метод")
+    names = ['Bone', 'Coal', 'Glass', 'Stone', 'Wood', 'Gem', 'Silver', 'Gold']
+    chances = [10, 10, 10, 10, 10, 3, 2, 1]
+    boxes = [ItemGeneratorParam().create_item(i) for i in choices(names, weights=chances, k=10)]
+    [box.open() for box in boxes]
