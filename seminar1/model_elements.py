@@ -6,8 +6,9 @@ T = TypeVar('T')
 
 class PolygonalModel:
     def __init__(self, textures):
-        self.textures = [textures]
-        self.polygons = [Polygon()]
+        self.Polygons = []
+        self.Textures = textures
+        self.Polygons.append(Polygon(Point3D()))
 
 
 class Flash:
@@ -29,7 +30,7 @@ class Texture:
 
 
 class Polygon:
-    def __init__(self):
+    def __init__(self, point):
         points = [Point3D()]
 
 
