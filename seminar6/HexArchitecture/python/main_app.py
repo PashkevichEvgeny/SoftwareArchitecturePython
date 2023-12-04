@@ -1,24 +1,21 @@
-from adapters.console_printer import ConsolePrinter
-from adapters.movie_reviews_repo import MovieReviewsRepo
-from adapters.user_command import UserCommand
-from application.movie_user import MovieUser
-from domain.movie_search_request import MovieSearchRequest
-
+from seminar6.HexArchitecture.python.adapters import MovieReviewsRepo, ConsolePrinter, UserCommand
+from seminar6.HexArchitecture.python.application import MovieUser
+from seminar6.HexArchitecture.python.domain import MovieSearchRequest
 
 if __name__ == "__main__":
     # Обращаемся к базе с фильмами через порт-адаптер <<i_fetch_movie_review>> <<movie_reviews_repo>>
-    fetchMovieReviews = MovieReviewsRepo()
+    fetch_movie_reviews = MovieReviewsRepo()
     # Создаем подключение к консольному принтеру через порт-адаптер <<i_print_movie_reviews.py>> <<console_printer>>
-    printMovieReviews = ConsolePrinter()
+    print_movie_reviews = ConsolePrinter()
     # Предоставление пользователю базы и принтера посредством порта-адаптера <<i_user_input>> <<user_command>>
-    userCommand = UserCommand(fetchMovieReviews, printMovieReviews)
+    user_command = UserCommand(fetch_movie_reviews, print_movie_reviews)
 
     # Создание пользовательского приложения для чтения обзоров
-    movieUser = MovieUser(userCommand)
+    movie_user = MovieUser(user_command)
 
-    for film in "StarWars", "StarTrack":
+    for film in 'StarWars', 'StarTrack', 'StarField':
         # Поиск фильма
-        filmRequest = MovieSearchRequest(film)
-        print("Displaying reviews for movie " + filmRequest.getMovieName)
+        film_request = MovieSearchRequest(film)
+        print(f'Displaying reviews for movie: {film}')
         # Обзоры на этот фильм
-        movieUser.processInput(filmRequest)
+        movie_user.process_input(film_request)
