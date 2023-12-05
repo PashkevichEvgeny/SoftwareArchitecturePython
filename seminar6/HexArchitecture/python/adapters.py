@@ -2,15 +2,16 @@ from typing import List
 
 from seminar6.HexArchitecture.python.application import MovieApp
 from seminar6.HexArchitecture.python.domain import MovieReview, MovieSearchRequest, Model
-from seminar6.HexArchitecture.python.ports import IPrintMovieReviews, IFetchMovieReviews, IUserInput
+from seminar6.HexArchitecture.python.ports import IPrintMovieReviews, IFetchMovieReviews
 
 
-class ConsolePrinter(IPrintMovieReviews):
-    def write_movie_reviews(self, movie_review_list: List[MovieReview]):
+class ConsolePrinter:
+    @staticmethod
+    def write_movie_reviews(movie_review_list: List[MovieReview]):
         print(*movie_review_list, sep='\n')
 
 
-class MovieReviewsRepo(IFetchMovieReviews):
+class MovieReviewsRepo:
     def __init__(self):
         self.movie_review_map = {}
         self.initialize()
@@ -31,7 +32,7 @@ class MovieReviewsRepo(IFetchMovieReviews):
         }
 
 
-class UserCommand(IUserInput):
+class UserCommand:
     def __init__(self, movie_repo: IFetchMovieReviews, movie_console: IPrintMovieReviews):
         movie_app = MovieApp(movie_repo, movie_console)
         self.model = Model(movie_app)
