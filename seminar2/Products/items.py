@@ -2,42 +2,42 @@ from seminar2.Products.game_item import GameItem
 
 
 class Bone(GameItem):
-    def open(self):
+    def look(self):
         print('Bone', end=' ')
 
 
 class Coal(GameItem):
-    def open(self):
+    def look(self):
         print('Coal', end=' ')
 
 
 class Gem(GameItem):
-    def open(self):
+    def look(self):
         print('Gem!', end=' ')
 
 
 class Glass(GameItem):
-    def open(self):
+    def look(self):
         print('Glass', end=' ')
 
 
 class Gold(GameItem):
-    def open(self):
+    def look(self):
         print('Gold!', end=' ')
 
 
 class Silver(GameItem):
-    def open(self):
+    def look(self):
         print('Silver!', end=' ')
 
 
 class Stone(GameItem):
-    def open(self):
+    def look(self):
         print('Stone', end=' ')
 
 
 class Wood(GameItem):
-    def open(self):
+    def look(self):
         print('Wood', end=' ')
 
 
