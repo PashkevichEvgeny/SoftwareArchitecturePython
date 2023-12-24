@@ -3,7 +3,6 @@ info:
   title: Robot service 3.0
   description: |-
     API сервис управления роботом - пылесосом.
-
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -19,7 +18,7 @@ tags:
     description: Контроллер группы.
   - name: Robot
     description: Контроллер робота.
-    
+
 paths:
 
   # ПОЛЬЗОВАТЕЛЬ
@@ -49,7 +48,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'          
+                $ref: '#/components/schemas/User'
             application/xml:
               schema:
                 $ref: '#/components/schemas/User'
@@ -60,7 +59,7 @@ paths:
       tags:
         - User
       summary: Обновить пользвателя
-      description: Обновить пользователя в базе
+      description: Обновить данные о пользователе в базе данных
       operationId: updateUser
       parameters:
         - name: userId
@@ -76,7 +75,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'          
+                $ref: '#/components/schemas/User'
             application/xml:
               schema:
                 $ref: '#/components/schemas/User'
@@ -90,8 +89,8 @@ paths:
     get:
       tags:
         - User
-      summary: Поиск пользователя по ID
-      description: Поиск пользователя в базе
+      summary: Найти пользователя по ID
+      description: Поиск пользователя по ID в базе данных
       operationId: getUserById
       parameters:
         - name: userId
@@ -107,7 +106,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'          
+                $ref: '#/components/schemas/User'
             application/xml:
               schema:
                 $ref: '#/components/schemas/User'
@@ -119,8 +118,8 @@ paths:
     delete:
       tags:
         - User
-      summary: Удаление пользователя
-      description: Удаление пользователя и базы данных
+      summary: Удалить пользователя
+      description: Удаление пользователя по ID из базы данных
       operationId: deleteUser
       parameters:
         - name: userId
@@ -144,13 +143,13 @@ paths:
         '404':
           description: User not found
 
-  # ГРУППА ПОЛЬЗОВАТЕЛЕЙ      
+  # ГРУППА ПОЛЬЗОВАТЕЛЕЙ
   /Group:
     post:
       tags:
         - Group
       summary: Добавить группу
-      description: Добавить группу в базу
+      description: Добавить группу в базу данных
       operationId: addGroup
       requestBody:
         description: Создание новой группы в базе
@@ -171,18 +170,49 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Group'          
+                $ref: '#/components/schemas/Group'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Group'
         '405':
           description: Invalid input
+  /Group/updateById/{groupId}:
+    put:
+      tags:
+        - Group
+      summary: Обновить группу
+      description: Обновить группу в базе данных
+      operationId: updateGroup
+      parameters:
+        - name: groupId
+          in: path
+          description: Идентификатор группы
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Group'
+        '400':
+          description: Invalid id supplier
+        '404':
+          description: User not found
+        '405':
+          description: Invalid exception
   /Group/findById/{groupId}:
     get:
       tags:
         - Group
-      summary: Поиск группы по ID
-      description: Поиск группы в базе данных
+      summary: Найти группу по ID
+      description: Поиск группы по ID в базе данных
       operationId: getGroupById
       parameters:
         - name: groupId
@@ -198,7 +228,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Group'          
+                $ref: '#/components/schemas/Group'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Group'
@@ -206,12 +236,12 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Group not found
-  /Group/deleteById/{groupId}:      
+  /Group/deleteById/{groupId}:
     delete:
       tags:
         - Group
-      summary: Удаление группы по ID
-      description: Удаление группы в базе данных
+      summary: Удалить группу по ID
+      description: Удаление группы по ID в базе данных
       operationId: deleteGroup
       parameters:
         - name: groupId
@@ -234,14 +264,14 @@ paths:
           description: Invalid group value
         '404':
           description: Group not found
-  
+
   # РОБОТ-ПЫЛЕСОС
   /Robot:
     post:
       tags:
         - Robot
-      summary: Добавление робота-пылесоса
-      description: Добавить данные о роботе-пылесосе в базу данных
+      summary: Добавить робота-пылесоса
+      description: Добавление робота-пылесоса в базу данных
       operationId: addRobot
       requestBody:
         description: Добавить робота-пылесоса в базу данных
@@ -262,7 +292,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Robot'          
+                $ref: '#/components/schemas/Robot'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Robot'
@@ -272,8 +302,8 @@ paths:
     put:
       tags:
         - Robot
-      summary: Обновление робота-пылесоса
-      description: Обновление данных о роботе пылесосе в базе данных
+      summary: Обновить робота-пылесоса
+      description: Обновление данных о роботе-пылесосе в базе
       operationId: updateRobot
       parameters:
         - name: robotId
@@ -295,7 +325,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Robot'          
+                $ref: '#/components/schemas/Robot'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Robot'
@@ -305,12 +335,41 @@ paths:
           description: Robot not found
         '405':
           description: Validation exception
-  /Robot/deleteById/{robotId}:      
+  /Robot/findById/{robotId}:
+    get:
+      tags:
+        - Robot
+      summary: Найти робота-пылесоса по ID
+      description: Поиск робота-пылесоса по ID в базе данных
+      operationId: getRobotById
+      parameters:
+        - name: robotId
+          in: path
+          description: Идентификатор робота-пылесоса
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Robot'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Robot'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Robot not found
+  /Robot/deleteById/{robotId}:
     delete:
       tags:
         - Robot
-      summary: Удаление робота-пылесоса по ID
-      description: Удаление данных о роботе-пылесосе из базы данных
+      summary: Удалить робота-пылесоса по ID
+      description: Удаление робота-пылесоса по ID из базы данных
       operationId: deleteRobot
       parameters:
         - name: robotId
@@ -333,13 +392,13 @@ paths:
           description: Invalid robot value
         '404':
           description: Robot not found
-  
+
   # РАСПИСАНИЕ УБОРКИ
   /Schedule:
     post:
       tags:
         - Schedule
-      summary: Добавление расписания
+      summary: Добавить расписание
       description: Добавление расписания уборки в базу данных
       operationId: addSchedule
       requestBody:
@@ -361,7 +420,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Schedule'          
+                $ref: '#/components/schemas/Schedule'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Schedule'
@@ -371,7 +430,7 @@ paths:
     put:
       tags:
         - Schedule
-      summary: Обновление расписания
+      summary: Обновить расписание
       description: Обновление расписания уборки в базе данных
       operationId: updateSchedule
       parameters:
@@ -388,7 +447,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Schedule'          
+                $ref: '#/components/schemas/Schedule'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Schedule'
@@ -402,7 +461,7 @@ paths:
     get:
       tags:
         - Schedule
-      summary: Поиск расписания по ID
+      summary: Найти расписание по ID
       description: Поиск расписания уборки по ID в базе данных
       operationId: getScheduleById
       parameters:
@@ -419,12 +478,40 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Schedule'          
+                $ref: '#/components/schemas/Schedule'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Schedule'
         '400':
           description: Invalid ID supplied
+        '404':
+          description: Schedule not found
+  /Schedule/deleteById/{scheduleId}:
+    delete:
+      tags:
+        - Schedule
+      summary: Удалить расписание
+      description: Удаление расписания уборки по ID из базы данных
+      operationId: deleteSchedule
+      parameters:
+        - name: scheduleId
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: scheduleId
+          in: path
+          description: ID - идентификатор расписания
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid schedule value
         '404':
           description: Schedule not found
 
